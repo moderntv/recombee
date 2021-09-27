@@ -1,3 +1,3 @@
-module git.moderntv.eu/go/recombee
+module github.com/moderntv/recombee
 
 go 1.17
