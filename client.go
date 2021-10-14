@@ -47,7 +47,7 @@ func NewClient(baseURI string, databaseID string, token string, opts ...ClientOp
 		databaseID: databaseID,
 		token:      []byte(token),
 
-		requestTimeout: 30 * time.Second,
+		requestTimeout: 5 * time.Minute,
 		maxBatchSize:   10000, // API limit
 	}
 	for _, o := range opts {
