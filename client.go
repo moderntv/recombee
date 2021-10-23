@@ -23,8 +23,8 @@ type Response struct {
 }
 
 type BatchResponse []struct {
-	Code int         `json:"code"`
-	Json interface{} `json:"json"`
+	Code int             `json:"code"`
+	Json json.RawMessage `json:"json"`
 }
 
 type Client struct {
