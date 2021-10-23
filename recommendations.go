@@ -5,6 +5,14 @@ import (
 	"net/http"
 )
 
+type Recommendations struct {
+	RecommID string `json:"recommId"`
+	Recomms  []struct {
+		ID string `json:"id"`
+	} `json:"recomms"`
+	NumberNextRecommsCalls int `json:"numberNextRecommsCalls"`
+}
+
 func RecommendItemsToUser(userId string, count int, opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	params["count"] = count
