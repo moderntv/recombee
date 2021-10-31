@@ -2,6 +2,7 @@ package recombee
 
 import (
 	"bytes"
+	"context"
 	"crypto/hmac"
 	"crypto/sha1"
 	"encoding/hex"
@@ -80,7 +81,7 @@ func (c *Client) signURL(u *url.URL) (err error) {
 	return
 }
 
-func (c *Client) batchRequest(requests ...Request) (batchResponse BatchResponse, err error) {
+func (c *Client) batchRequest(ctx context.Context, requests ...Request) (batchResponse BatchResponse, err error) {
 	var batchRequest = BatchRequest{
 		Requests: requests,
 	}
@@ -103,7 +104,7 @@ func (c *Client) batchRequest(requests ...Request) (batchResponse BatchResponse,
 		return
 	}
 	var request *http.Request
-	request, err = http.NewRequest(http.MethodPost, u.String(), body)
+	request, err = http.NewRequestWithContext(ctx, http.MethodPost, u.String(), body)
 	if err != nil {
 		return
 	}
@@ -135,7 +136,7 @@ func (c *Client) batchRequest(requests ...Request) (batchResponse BatchResponse,
 	return
 }
 
-func (c *Client) Request(requests ...Request) (responses BatchResponse, err error) {
+func (c *Client) Request(ctx context.Context, requests ...Request) (responses BatchResponse, err error) {
 	if len(requests) == 0 {
 		return
 	}
@@ -147,7 +148,7 @@ func (c *Client) Request(requests ...Request) (responses BatchResponse, err erro
 		batch = requests[i : i+size]
 
 		var br BatchResponse
-		br, err = c.batchRequest(batch...)
+		br, err = c.batchRequest(ctx, batch...)
 		if err != nil {
 			return
 		}
