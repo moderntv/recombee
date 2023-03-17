@@ -5,14 +5,20 @@ import (
 	"net/http"
 )
 
+// Generics response from recombee API.
 type Recommendations struct {
+	// Unique for recommendation call. Primarilly used to send back in future requests.
 	RecommID string `json:"recommId"`
-	Recomms  []struct {
+	// Recommendations indentifiers that were returned as recommended content.
+	Recomms []struct {
+		// Point to specific item
 		ID string `json:"id"`
 	} `json:"recomms"`
+	// Some of requests may desire mulitple calls to finish the recommendation process
 	NumberNextRecommsCalls int `json:"numberNextRecommsCalls"`
 }
 
+// Scenario in which the usedId is recommend count number of items.
 func RecommendItemsToUser(userId string, count int, opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	params["count"] = count
@@ -27,6 +33,7 @@ func RecommendItemsToUser(userId string, count int, opts ...RequestOption) Reque
 	}
 }
 
+// Scenario known as simillar items to user given item.
 func RecommendItemsToItem(itemId string, targetUserId string, count int, opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	params["count"] = count

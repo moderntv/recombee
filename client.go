@@ -1,3 +1,6 @@
+// The recombee package implements recombee API specification.
+// Does not include external packages so it should be easy to install.
+
 package recombee
 
 import (
@@ -14,25 +17,32 @@ import (
 	"time"
 )
 
+// Used for json slice encode.
 type BatchRequest struct {
 	Requests []Request `json:"requests"`
 }
 
+// Response from Recombee API to be checked.
 type Response struct {
 	StatusCode int    `json:"statusCode"`
 	Message    string `json:"message"`
 }
 
+// Returns all responses from batch API call.
 type BatchResponse []struct {
-	Code int             `json:"code"`
+	Code int `json:"code"`
+	// Typically unmarshalled into [Recommendations] struct
 	Json json.RawMessage `json:"json"`
 }
 
+// Client used for communication with Recombee API
 type Client struct {
-	// mandatory
-	baseURI    string
+	// URI where the recombee API is exposed.
+	baseURI string
+	// DatabaseID points on storage where are API calls stores into or retrieves from.
 	databaseID string
-	token      []byte
+	// Authentication token created in Recombee admin
+	token []byte
 
 	// configurable via options
 	requestTimeout  time.Duration
@@ -42,6 +52,7 @@ type Client struct {
 	httpClient *http.Client
 }
 
+// Returns new recombee API client.
 func NewClient(baseURI string, databaseID string, token string, opts ...ClientOption) (c *Client) {
 	c = &Client{
 		baseURI:    baseURI,
@@ -136,6 +147,7 @@ func (c *Client) batchRequest(ctx context.Context, requests ...Request) (batchRe
 	return
 }
 
+// Requests appropriate entity that is given by requests.
 func (c *Client) Request(ctx context.Context, requests ...Request) (responses BatchResponse, err error) {
 	if len(requests) == 0 {
 		return
