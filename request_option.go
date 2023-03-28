@@ -66,7 +66,7 @@ func WithLogic(logic interface{}) RequestOption {
 func WithMinRelevance(min float64) RequestOption {
 	return WithKeyValue("minRelevance", min)
 }
-func WithRotationRate(rate float64) RequestOption {
+func WithRotationRate(rate string) RequestOption {
 	return WithKeyValue("rotationRate", rate)
 }
 func WithRotationTime(t float64) RequestOption {
