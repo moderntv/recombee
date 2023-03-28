@@ -101,7 +101,7 @@ func WithLogic(logic interface{}) RequestOption {
 
 // WithMinRelevance is relevance of recommended item. Possible values are "low", "medium", "high".
 // Default is "low, meaning that the recombee system attempts to recommend a number of items to count at any cost.
-func WithMinRelevance(min float64) RequestOption {
+func WithMinRelevance(min string) RequestOption {
 	return WithKeyValue("minRelevance", min)
 }
 
