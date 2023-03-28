@@ -23,56 +23,57 @@ func WithCascadeCreate() RequestOption {
 	return WithKeyValue("cascadeCreate", true)
 }
 
+// Amount of ordered item. Used for POST Cart addition.
 func WithAmount(amount float64) RequestOption {
 	return WithKeyValue("amount", amount)
 }
 
-// Price of item
+// Price of item.
 func WithPrice(price float64) RequestOption {
 	return WithKeyValue("price", price)
 }
 
-// Profit when acquiring item
+// Profit when acquiring item.
 func WithProfit(profit float64) RequestOption {
 	return WithKeyValue("profit", profit)
 }
 
-// Specified when received from previous API calls. Improves accuracy of recommendations
+// Specified when received from previous API calls. Improves accuracy of recommendations.
 func WithRecommId(id string) RequestOption {
 	return WithKeyValue("recommId", id)
 }
 
-// Duration of interaction
+// Duration of interaction.
 func WithDuration(dur time.Duration) RequestOption {
 	return WithKeyValue("duration", dur)
 }
 
-// Specifies user session ID
+// Specifies user session ID.
 func WithSessionId(id string) RequestOption {
 	return WithKeyValue("sessionId", id)
 }
 
-// Uses custom filter defined in recombee filters
+// Uses custom filter defined in recombee filters.
 func WithFilter(filter string) RequestOption {
 	return WithKeyValue("filter", filter)
 }
 
-// Limits the number of received elements/items
+// Limits the number of received elements/items.
 func WithCount(count int) RequestOption {
 	return WithKeyValue("count", count)
 }
 
-// Offests the API received elements/items
+// Offests the API received elements/items.
 func WithOffset(offset int) RequestOption {
 	return WithKeyValue("offset", offset)
 }
 
-// Returns properties of items
+// Returns properties of items.
 func WithReturnProperties(enable bool) RequestOption {
 	return WithKeyValue("returnProperties", enable)
 }
 
-// Includes properties to items
+// Includes properties to items.
 func WithIncludedProperties(enable bool) RequestOption {
 	return WithKeyValue("includedProperties", enable)
 }
@@ -92,18 +93,28 @@ func WithBooster(booster string) RequestOption {
 	return WithKeyValue("booster", booster)
 }
 
+// Typicaly string which points to recombee Models/Search/Advetings logic or
+// own specific logic for given recommendation request.
 func WithLogic(logic interface{}) RequestOption {
 	return WithKeyValue("logic", logic)
 }
 
+// Relevance of recommended item. Possible values are "low", "medium", "high".
+// Default is "low, meaning that the recombee system attempts to recommend a number of items to count at any cost.
 func WithMinRelevance(min float64) RequestOption {
 	return WithKeyValue("minRelevance", min)
 }
 
+// Used when `targetUserId` is provided. Should be used when user recommendations are resolved in real-time.
+// The question is, how much the recommendation should change? When set to 0 remains the recommendation the same.
+// When set to 1 means maximal rotation of recommended items for user.
 func WithRotationRate(rate float64) RequestOption {
 	return WithKeyValue("rotationRate", rate)
 }
 
+// Used when `targetUserId` is provided. Taking `rotationRate` into account.
+// Speicfies how long it takes recommended item from previous rotation to recover from penalization.
 func WithRotationTime(t float64) RequestOption {
 	return WithKeyValue("rotationTime", t)
 }
+

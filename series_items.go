@@ -36,7 +36,7 @@ func RemoveFromSeries(seriesId string, itemType string, itemId string, time_ flo
 	}
 }
 
-// Lists all items in series/season. For series returns list of seasons. For season returns list of episodes
+// Lists all items in series/season. For series returns list of seasons. For season returns list of episodes.
 func ListSeriesItems(seriesId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/series/%s/items/", seriesId),

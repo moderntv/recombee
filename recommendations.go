@@ -11,10 +11,10 @@ type Recommendations struct {
 	RecommID string `json:"recommId"`
 	// Recommendations indentifiers that were returned as recommended content.
 	Recomms []struct {
-		// Point to specific item
+		// Point to recommended item.
 		ID string `json:"id"`
 	} `json:"recomms"`
-	// Some of requests may desire mulitple calls to finish the recommendation process
+	// Some of requests may desire mulitple calls to finish the recommendation process.
 	NumberNextRecommsCalls int `json:"numberNextRecommsCalls"`
 }
 
