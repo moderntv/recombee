@@ -16,7 +16,7 @@ import (
 	"time"
 )
 
-// Used for json slice encode.
+// BatchRequest is used for json slice encode.
 type BatchRequest struct {
 	Requests []Request `json:"requests"`
 }
@@ -27,7 +27,7 @@ type Response struct {
 	Message    string `json:"message"`
 }
 
-// Returns all responses from batch API call.
+// BatchResponse returns all responses from batch API call.
 // Typically unmarshalled into [Recommendations] struct.
 type BatchResponse []struct {
 	Code int             `json:"code"`
@@ -51,7 +51,7 @@ type Client struct {
 	httpClient *http.Client
 }
 
-// Returns new recombee API client.
+// NewClient returns new recombee API client.
 func NewClient(baseURI string, databaseID string, token string, opts ...ClientOption) (c *Client) {
 	c = &Client{
 		baseURI:    baseURI,
@@ -146,7 +146,7 @@ func (c *Client) batchRequest(ctx context.Context, requests ...Request) (batchRe
 	return
 }
 
-// Requests appropriate entity that is given by requests.
+// Request creates batch request which requests appropriate entity/entities that is/are given by requests.
 func (c *Client) Request(ctx context.Context, requests ...Request) (responses BatchResponse, err error) {
 	if len(requests) == 0 {
 		return
