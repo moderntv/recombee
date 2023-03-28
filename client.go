@@ -1,6 +1,5 @@
 // The recombee package implements recombee API specification.
 // Does not include external packages so it should be easy to install.
-
 package recombee
 
 import (
@@ -29,22 +28,22 @@ type Response struct {
 }
 
 // Returns all responses from batch API call.
+// Typically unmarshalled into [Recommendations] struct.
 type BatchResponse []struct {
-	Code int `json:"code"`
-	// Typically unmarshalled into [Recommendations] struct
+	Code int             `json:"code"`
 	Json json.RawMessage `json:"json"`
 }
 
-// Client used for communication with Recombee API
+// Client used for communication with Recombee API.
 type Client struct {
 	// URI where the recombee API is exposed.
 	baseURI string
 	// DatabaseID points on storage where are API calls stores into or retrieves from.
 	databaseID string
-	// Authentication token created in Recombee admin
+	// Authentication token created in Recombee admin.
 	token []byte
 
-	// configurable via options
+	// configurable via options.
 	requestTimeout  time.Duration
 	maxBatchSize    int
 	distinctRecomms bool //TODO implement

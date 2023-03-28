@@ -21,6 +21,7 @@ func WithMaxBatchSize(max int) ClientOption {
 	}
 }
 
+// When true, makes recommended items for certain user distinct among multiple recommendations.
 func WithDistinctRecomms(v bool) ClientOption {
 	return func(c *Client) {
 		c.distinctRecomms = v

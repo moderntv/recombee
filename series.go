@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-// Based on given seriesId adds new series/season
+// Based on given seriesId adds new series/season.
 func AddSeries(seriesId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/series/%s", seriesId),
