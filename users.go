@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-// Add new user to be recommended for.
+// AddUser add new user to be recommended for.
 func AddUser(userId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/users/%s", userId),
@@ -13,7 +13,7 @@ func AddUser(userId string) Request {
 	}
 }
 
-// Deletes user.
+// DeleteUser deletes user.
 func DeleteUser(userId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/users/%s", userId),
@@ -21,7 +21,7 @@ func DeleteUser(userId string) Request {
 	}
 }
 
-// Merges user interactions of two different users together. First argument is the userId where it will be stored after successful merge.
+// MergeUsers merges user interactions of two different users together. First argument is the userId where it will be stored after successful merge.
 func MergeUsers(targetUserId string, sourceUserId string, opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	for _, o := range opts {
@@ -34,7 +34,7 @@ func MergeUsers(targetUserId string, sourceUserId string, opts ...RequestOption)
 	}
 }
 
-// List all users when no opts specified.
+// ListUsers lists all users when no opts specified.
 func ListUsers(opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	for _, o := range opts {

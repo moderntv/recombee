@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-// Add property (column) into items view.
+// AddItemProperty adds property (column) into items view.
 func AddItemProperty(propertyName string, type_ string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/items/properties/%s", propertyName),
@@ -16,7 +16,7 @@ func AddItemProperty(propertyName string, type_ string) Request {
 	}
 }
 
-// Delete property (column) from items view.
+// DeleteItemProperty deletes property (column) from items view.
 func DeleteItemProperty(propertyName string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/items/properties/%s", propertyName),
@@ -24,7 +24,7 @@ func DeleteItemProperty(propertyName string) Request {
 	}
 }
 
-// List all properties that are possible to set for items.
+// GetItemPropertyInfo lists all properties that are possible to set for items.
 func GetItemPropertyInfo(propertyName string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/items/properties/%s", propertyName),

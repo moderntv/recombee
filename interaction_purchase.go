@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-// Adds purchase of item performed by user.
+// AddPurchase adds purchase of item performed by user.
 func AddPurchase(userId string, itemId string, opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	params["userId"] = userId
@@ -20,7 +20,7 @@ func AddPurchase(userId string, itemId string, opts ...RequestOption) Request {
 	}
 }
 
-// Deletes purchase of item that was previously created by user.
+// DeletePurchase deletes purchase of item that was previously created by user.
 func DeletePurchase(userId string, itemId string, opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	params["userId"] = userId
@@ -35,7 +35,7 @@ func DeletePurchase(userId string, itemId string, opts ...RequestOption) Request
 	}
 }
 
-// List all purchases of item.
+// ListItemPurchases list all purchases of item.
 func ListItemPurchases(itemId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/items/%s/purchases/", itemId),
@@ -43,7 +43,7 @@ func ListItemPurchases(itemId string) Request {
 	}
 }
 
-// List all purchases of given user.
+// ListUserPurchases list all purchases of given user.
 func ListUserPurchases(userId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/users/%s/purchases/", userId),

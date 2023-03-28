@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-// Adds information into item that user has shown detail of item.
+// AddDetailView adds information into item that user has shown the detail of an item.
 func AddDetailView(userId string, itemId string, opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	params["userId"] = userId
@@ -20,7 +20,7 @@ func AddDetailView(userId string, itemId string, opts ...RequestOption) Request 
 	}
 }
 
-// Removes information from item that user has shown detail of item.
+// DeleteDetailView removes information from item that user has shown the detail of an item.
 func DeleteDetailView(userId string, itemId string, opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	params["userId"] = userId
@@ -35,7 +35,7 @@ func DeleteDetailView(userId string, itemId string, opts ...RequestOption) Reque
 	}
 }
 
-// Lists all opened details on item.
+// ListItemDetailViews lists all opened details on item.
 func ListItemDetailViews(itemId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/items/%s/detailviews/", itemId),
@@ -43,7 +43,7 @@ func ListItemDetailViews(itemId string) Request {
 	}
 }
 
-// Lists all opened details by user.
+// ListUserDetailViews lists all opened details by user.
 func ListUserDetailViews(userId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/users/%s/detailviews/", userId),

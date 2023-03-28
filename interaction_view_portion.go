@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-// Sets how much user have watched single item.
+// SetViewPorition sets how much user have watched single item. Portion is scaled from 0.0 to 1.0 (0 - 100%)
 func SetViewPortion(userId string, itemId string, portion float64, opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	params["userId"] = userId
@@ -22,7 +22,7 @@ func SetViewPortion(userId string, itemId string, portion float64, opts ...Reque
 	}
 }
 
-// Deletes watched portion from user's single item.
+// DeleteViewPortion deletes watched portion from user's single item.
 func DeleteViewPortion(userId string, itemId string, opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	params["userId"] = userId
@@ -37,7 +37,7 @@ func DeleteViewPortion(userId string, itemId string, opts ...RequestOption) Requ
 	}
 }
 
-// Get all stored view portion for item.
+// ListItemViewPortions gets all stored view portion for an item.
 func ListItemViewPortions(itemId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/items/%s/viewportions/", itemId),
@@ -45,7 +45,7 @@ func ListItemViewPortions(itemId string) Request {
 	}
 }
 
-// Get all user's view portions.
+// ListUserViewPortions gets all user items view portions.
 func ListUserViewPortions(userId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/users/%s/viewportions/", userId),

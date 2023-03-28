@@ -1,6 +1,6 @@
 package recombee
 
-// Generic request to recombee API. Use it only when request is not already implemented as part of package.
+// Request is a generic request to recombee API. Use it only when request is not already implemented as call in package.
 type Request struct {
 	// Path in API to resource.
 	Path string `json:"path"`
