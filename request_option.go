@@ -105,16 +105,26 @@ func WithMinRelevance(min string) RequestOption {
 	return WithKeyValue("minRelevance", min)
 }
 
-// WithRotationRate is used when `targetUserId` is provided. Should be used when user recommendations are resolved in real-time.
-// The question is, how much the recommendation should change? When set to 0 remains the recommendation the same.
-// When set to 1 means maximal rotation of recommended items for user.
+/*
+WithRotationRate can be used when `userId` or `targetUserId` is provided in API call. For example [RecommendItemsToItem] or [RecommendItemsToUser]
+Should be used when user recommendations are resolved in real-time.
+
+RotationRate says how much the recommendation for single user differs over consecutive API calls.
+
+When set to 0 remains the recommendation the same.
+
+When set to 1 means maximal rotation of recommended items for user.
+*/
 func WithRotationRate(rate float64) RequestOption {
 	return WithKeyValue("rotationRate", rate)
 }
 
-// WithRotationTime is used when `targetUserId` is provided. Taking `rotationRate` into account.
-// Speicfies how long it takes recommended item from previous rotation to recover from penalization.
-// t is specified as seconds with precision to milliseconds.
+/*
+WithRotationTime is used when `targetUserId` is provided. Taking `rotationRate` into account.
+Speicfies how long it takes recommended item from previous rotation to recover from penalization.
+
+`t` is specified as seconds with precision to milliseconds.
+*/
 func WithRotationTime(t float64) RequestOption {
 	return WithKeyValue("rotationTime", t)
 }

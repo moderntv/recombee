@@ -1,5 +1,4 @@
 // The recombee package implements recombee API specification.
-// Does not include external packages so it should be easy to install.
 package recombee
 
 import (
