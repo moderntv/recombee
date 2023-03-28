@@ -1,11 +1,9 @@
 # Recombee
-Recombee API client implements recombee API that can be found [here](https://docs.recombee.com/api.html).
+[Recombee API](https://docs.recombee.com/api.html) client implements the recombee API specification in go.
 
-The client is supposed to be used using batch requests using `Request(...)` method. 
-
-The batch requests are efficient and saves outgoing traffic. However you can still use the `Request(...)` method per each request. 
-
-It will make single call with single response but using `/batch` endpoint.
+* The client is supposed to be used using batch requests using `Request(...)` method. 
+* The batch requests are efficient and saves outgoing traffic. However, you can still use the `Request(...)` method per each request. 
+* It will make a single call with single response but using `/batch` endpoint.
 
 # Getting started
 As recombee serves recommendations based on the user interactions, first of all there have to be inserted items and interactions. Afterwards the user asks for his/hers recommendation. 
@@ -15,13 +13,7 @@ To import recombee API client insert
 
 to your code and run `go [build|run|test]` which automatically fetch dependency.
 
-Otherwise run command to install package into your project
-
-```go get -u github.com/moderntv/recombee```
-
 ## Example
-Example usage of recombee client could look as follows
-
 ```
 package main
 
@@ -89,9 +81,4 @@ func main() {
 	fmt.Println(recommendations)
 }
 ```
-
-# Contributing
-This API is extended on demand. Please make sure if some endpoint integration is missing, contact us in Issue section or make Pull Request for the featured API call.
-We will be pleased to check it and merge it if applicable.
-
 

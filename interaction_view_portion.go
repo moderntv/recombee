@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-// SetViewPorition sets how much user have watched single item. Portion is scaled from 0.0 to 1.0 (0 - 100%)
+// SetViewPortion sets how much user have watched single item. Portion is scaled from 0.0 to 1.0 (0 - 100%)
 func SetViewPortion(userId string, itemId string, portion float64, opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	params["userId"] = userId
