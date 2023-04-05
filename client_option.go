@@ -7,21 +7,22 @@ import (
 // ClientOption for http client to be configured.
 type ClientOption func(c *Client)
 
-// WithRequestTimeout specifies default http request timeout.
+// WithRequestTimeout sets request timeout.
 func WithRequestTimeout(t time.Duration) ClientOption {
 	return func(c *Client) {
 		c.requestTimeout = t
 	}
 }
 
-// WithMaxBatchSize specifies max batch size that is send by http client as single http request to recombee API.
+// WithMaxBatchSize sets max batch size that is sent to the API in a single request.
 func WithMaxBatchSize(max int) ClientOption {
 	return func(c *Client) {
 		c.maxBatchSize = max
 	}
 }
 
-// WithDistinctRecomms when set to true, makes recommended items for certain user distinct among multiple recommendations.
+// WithDistinctRecomms makes all the recommended items for a certain user distinct among multiple recommendation
+// requests in the batch.
 func WithDistinctRecomms(v bool) ClientOption {
 	return func(c *Client) {
 		c.distinctRecomms = v
