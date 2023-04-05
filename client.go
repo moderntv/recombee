@@ -1,4 +1,4 @@
-// The recombee package implements recombee API specification.
+// Package recombee implements recombee API client.
 package recombee
 
 import (
