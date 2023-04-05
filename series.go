@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-// AddSeries adds series based on given seriesId. From series/season perspective adds new series/season.
+// AddSeries creates a new series in the database.
 func AddSeries(seriesId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/series/%s", seriesId),
@@ -13,7 +13,9 @@ func AddSeries(seriesId string) Request {
 	}
 }
 
-// DeleteSeries deletes existing seriesId from series view.
+// DeleteSeries deletes the series of the given seriesId from the database.
+//
+// Deleting a series will only delete assignment of items to it, not the items themselves!
 func DeleteSeries(seriesId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/series/%s", seriesId),
@@ -21,7 +23,9 @@ func DeleteSeries(seriesId string) Request {
 	}
 }
 
-// ListSeries lists all series when no options are present.
+// ListSeries gets the list of all the series currently present in the database.
+//
+// API calls limit: 100 requests per minute. This limit can be increased for a database by the Recombee support.
 func ListSeries(opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	for _, o := range opts {
