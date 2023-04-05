@@ -24,8 +24,6 @@ func DeleteSeries(seriesId string) Request {
 }
 
 // ListSeries gets the list of all the series currently present in the database.
-//
-// API calls limit: 100 requests per minute. This limit can be increased for a database by the Recombee support.
 func ListSeries(opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	for _, o := range opts {

@@ -34,8 +34,6 @@ func DeleteUser(userId string) Request {
 //
 // Merging happens between two users referred to as the target and the source. After the merge, all the interactions of
 // the source user are attributed to the target user, and the source user is deleted.
-//
-// API calls limit: 100 requests per minute. This limit can be increased for a database by the Recombee support.
 func MergeUsers(targetUserId string, sourceUserId string, opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	for _, o := range opts {
@@ -49,8 +47,6 @@ func MergeUsers(targetUserId string, sourceUserId string, opts ...RequestOption)
 }
 
 // ListUsers gets a list of IDs of users currently present in the catalog.
-//
-// API calls limit: 100 requests per minute. This limit can be increased for a database by the Recombee support.
 func ListUsers(opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	for _, o := range opts {
