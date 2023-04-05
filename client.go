@@ -15,25 +15,21 @@ import (
 	"time"
 )
 
-// BatchRequest is used for json slice encode.
 type BatchRequest struct {
 	Requests []Request `json:"requests"`
 }
 
-// Response from Recombee API to be checked.
 type Response struct {
 	StatusCode int    `json:"statusCode"`
 	Message    string `json:"message"`
 }
 
-// BatchResponse returns all responses from batch API call.
-// Typically unmarshalled into [Recommendations] struct.
+// BatchResponse represents a message returned by Recombee Batch API.
 type BatchResponse []struct {
 	Code int             `json:"code"`
 	Json json.RawMessage `json:"json"`
 }
 
-// Client used for communication with Recombee API.
 type Client struct {
 	// URI where the recombee API is exposed.
 	baseURI string
