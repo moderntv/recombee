@@ -1,73 +1,75 @@
 # Recombee
-[Recombee API](https://docs.recombee.com/api.html) client implements the recombee API specification in go.
 
-* The client is supposed to be used using batch requests using `Request(...)` method. 
-* The batch requests are efficient and saves outgoing traffic. However, you can still use the `Request(...)` method per each request. 
-* It will make a single call with single response but using `/batch` endpoint.
+A [Recombee API](https://docs.recombee.com/api.html) client written in Go. 
 
-# Getting started
-As recombee serves recommendations based on the user interactions, first of all there have to be inserted items and interactions. Afterwards the user asks for his/hers recommendation. 
-To import recombee API client insert
+[![GoDoc][GoDoc-Image]][GoDoc-Url]
 
-```import "github.com/moderntv/recombee"```
+[GoDoc-Url]: https://pkg.go.dev/github.com/nats-io/nats.go
+[GoDoc-Image]: https://img.shields.io/badge/GoDoc-reference-007d9c
 
-to your code and run `go [build|run|test]` which automatically fetch dependency.
+## Features
 
-## Example
-```
+Is capable of managing:
+
+* Items and Item Properties
+* Users
+* User-Item Interactions
+* Recommendations
+* Series
+
+Uses [batch mode](https://docs.recombee.com/api.html#batch) by default to send requests to the API.
+
+## Basic usage
+
+```go
 package main
 
 import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
-	"strconv"
-
+	
 	"github.com/moderntv/recombee"
 )
 
-type Recombee struct {
-	client *recombee.Client
-}
+const (
+	apiUri     = "https://rapi.recombee.com"
+	databaseId = "dev"
+	token      = "api-token"
+)
 
 func main() {
-	databaseId := "dev"
-	token := "yourtoken"
-	r := &Recombee{
-		client: recombee.NewClient("https://rapi.recombee.com", databaseId, token),
-	}
-	var seriesID int64 = 123
-	var userID int64 = 1
+	userID := "23"
+	seriesID := "6821"
+	rating := 0.8
 	myRequests := []recombee.Request{
-		recombee.AddItem("123"),
+		recombee.AddItem("1215"),
 		recombee.AddRating(
-			strconv.FormatInt(userID, 10),
-			strconv.FormatInt(seriesID, 10),
-			float64(0.8),
+			userID,
+			seriesID,
+			rating,
 			recombee.WithCascadeCreate(),
 		),
 	}
 
-	responses, err := r.client.Request(context.Background(), myRequests...)
+	client := recombee.NewClient(apiUri, databaseId, token)
+	responses, err := client.Request(context.Background(), myRequests...)
 	if err != nil {
 		panic(err)
 	}
 
 	for _, resp := range responses {
 		if resp.Code != http.StatusCreated && resp.Code != http.StatusConflict {
-			log.Print(resp.Code)
-			log.Print(resp.Json)
+			fmt.Printf("%s: %s\n", http.StatusText(resp.Code), resp.Json)
 		}
 	}
 
 	// Ask for single recommendation
-	resp, err := r.client.Request(context.Background(), recombee.RecommendItemsToUser(
-		strconv.FormatInt(userID, 10),
-        1,
+	resp, err := client.Request(context.Background(), recombee.RecommendItemsToUser(
+		userID,
+		1,
 	))
-
 	if err != nil {
 		panic(err)
 	}
@@ -78,7 +80,10 @@ func main() {
 		return
 	}
 
-	fmt.Println(recommendations)
+	fmt.Printf("%#v\n", recommendations)
 }
 ```
 
+## License
+
+Unless otherwise noted, the source files are distributed under the MIT license found in the LICENSE file.
