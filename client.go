@@ -1,4 +1,6 @@
-// Package recombee implements recombee API client.
+// Package recombee implements a client for Recombee API. The client uses batch endpoint to send requests to the API.
+//
+// For detailed documentation please see Recombee's API reference: https://docs.recombee.com/api.html.
 package recombee
 
 import (
@@ -31,7 +33,7 @@ type BatchResponse []struct {
 }
 
 type Client struct {
-	// URI where the recombee API is exposed.
+	// URI where the Recombee API is exposed.
 	baseURI string
 	// DatabaseID points on storage where are API calls stores into or retrieves from.
 	databaseID string
@@ -46,7 +48,7 @@ type Client struct {
 	httpClient *http.Client
 }
 
-// NewClient returns new recombee API client.
+// NewClient returns new Recombee API client.
 func NewClient(baseURI string, databaseID string, token string, opts ...ClientOption) (c *Client) {
 	c = &Client{
 		baseURI:    baseURI,
