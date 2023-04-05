@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-// InsertToSeries inserts item into series container. Used for creating series->season->episode tree structure.
+// InsertToSeries inserts an existing item/series into a series of the given seriesId at a position determined by time.
 func InsertToSeries(seriesId string, itemType string, itemId string, time_ float64, opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	params["itemType"] = itemType
@@ -22,7 +22,7 @@ func InsertToSeries(seriesId string, itemType string, itemId string, time_ float
 	}
 }
 
-// RemoveFromSeries removes item assignement from series/season.
+// RemoveFromSeries removes an existing series item from the series.
 func RemoveFromSeries(seriesId string, itemType string, itemId string, time_ float64) Request {
 	params := make(map[string]interface{})
 	params["itemType"] = itemType
@@ -36,7 +36,7 @@ func RemoveFromSeries(seriesId string, itemType string, itemId string, time_ flo
 	}
 }
 
-// ListSeriesItems lists all items in series/season. For series returns list of seasons. For season returns list of episodes.
+// ListSeriesItems lists all the items present in the given series, sorted according to their time index values.
 func ListSeriesItems(seriesId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/series/%s/items/", seriesId),
