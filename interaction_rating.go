@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-// AddRating adds rating into item. Rating is scaled from -1.0 to 1.0.
+// AddRating adds a rating of the given item made by the given user.
 func AddRating(userId string, itemId string, rating float64, opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	params["userId"] = userId
@@ -22,7 +22,10 @@ func AddRating(userId string, itemId string, rating float64, opts ...RequestOpti
 	}
 }
 
-// DeleteRating deletes specified user rating based by given itemId.
+// DeleteRating deletes an existing rating specified by (userId, itemId, timestamp) from the database or all the
+// ratings with the given userId and itemId if timestamp is omitted.
+//
+// API calls limit: 1000 requests per minute. This limit can be increased for a database by the Recombee support.
 func DeleteRating(userId string, itemId string, opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	params["userId"] = userId
@@ -38,7 +41,9 @@ func DeleteRating(userId string, itemId string, opts ...RequestOption) Request {
 	}
 }
 
-// LiastItemRatings lists all ratings of single item.
+// ListItemRatings lists all the ratings of an item ever submitted by different users.
+//
+// API calls limit: 60 requests per minute. This limit can be increased for a database by the Recombee support.
 func ListItemRatings(itemId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/items/%s/ratings/", itemId),
@@ -46,7 +51,9 @@ func ListItemRatings(itemId string) Request {
 	}
 }
 
-// ListUserRatings lists all user's ratings. Returns list of items that user has ever rated.
+// ListUserRatings lists all the ratings ever submitted by the given user.
+//
+// API calls limit: 60 requests per minute. This limit can be increased for a database by the Recombee support.
 func ListUserRatings(userId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/users/%s/ratings/", userId),
