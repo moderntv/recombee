@@ -24,8 +24,6 @@ func AddRating(userId string, itemId string, rating float64, opts ...RequestOpti
 
 // DeleteRating deletes an existing rating specified by (userId, itemId, timestamp) from the database or all the
 // ratings with the given userId and itemId if timestamp is omitted.
-//
-// API calls limit: 1000 requests per minute. This limit can be increased for a database by the Recombee support.
 func DeleteRating(userId string, itemId string, opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	params["userId"] = userId
@@ -42,8 +40,6 @@ func DeleteRating(userId string, itemId string, opts ...RequestOption) Request {
 }
 
 // ListItemRatings lists all the ratings of an item ever submitted by different users.
-//
-// API calls limit: 60 requests per minute. This limit can be increased for a database by the Recombee support.
 func ListItemRatings(itemId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/items/%s/ratings/", itemId),
@@ -52,8 +48,6 @@ func ListItemRatings(itemId string) Request {
 }
 
 // ListUserRatings lists all the ratings ever submitted by the given user.
-//
-// API calls limit: 60 requests per minute. This limit can be increased for a database by the Recombee support.
 func ListUserRatings(userId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/users/%s/ratings/", userId),

@@ -28,8 +28,6 @@ func DeleteItem(itemId string) Request {
 }
 
 // ListItems gets a list of IDs of items currently present in the catalog.
-//
-// API calls limit: 100 requests per minute. This limit can be increased for a database by the Recombee support.
 func ListItems(opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	for _, o := range opts {

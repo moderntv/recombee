@@ -22,8 +22,6 @@ func AddDetailView(userId string, itemId string, opts ...RequestOption) Request 
 
 // DeleteDetailView deletes an existing detail view uniquely specified by (userId, itemId, and timestamp) or all the
 // detail views with the given userId and itemId if timestamp is omitted.
-//
-// API calls limit: 1000 requests per minute. This limit can be increased for a database by the Recombee support.
 func DeleteDetailView(userId string, itemId string, opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	params["userId"] = userId
@@ -39,8 +37,6 @@ func DeleteDetailView(userId string, itemId string, opts ...RequestOption) Reque
 }
 
 // ListItemDetailViews lists all the detail views of the given item ever made by different users.
-//
-// API calls limit: 60 requests per minute. This limit can be increased for a database by the Recombee support.
 func ListItemDetailViews(itemId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/items/%s/detailviews/", itemId),
@@ -49,8 +45,6 @@ func ListItemDetailViews(itemId string) Request {
 }
 
 // ListUserDetailViews lists all the detail views of different items ever made by the given user.
-//
-// API calls limit: 60 requests per minute. This limit can be increased for a database by the Recombee support.
 func ListUserDetailViews(userId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/users/%s/detailviews/", userId),
