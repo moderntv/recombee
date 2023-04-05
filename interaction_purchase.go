@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-// AddPurchase adds purchase of item performed by user.
+// AddPurchase adds a purchase of the given item made by the given user.
 func AddPurchase(userId string, itemId string, opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	params["userId"] = userId
@@ -20,7 +20,10 @@ func AddPurchase(userId string, itemId string, opts ...RequestOption) Request {
 	}
 }
 
-// DeletePurchase deletes purchase of item that was previously created by user.
+// DeletePurchase deletes an existing purchase uniquely specified by userId, itemId, and timestamp or all the purchases
+// with the given userId and itemId if timestamp is omitted.
+//
+// API calls limit: 1000 requests per minute. This limit can be increased for a database by the Recombee support.
 func DeletePurchase(userId string, itemId string, opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	params["userId"] = userId
@@ -35,7 +38,9 @@ func DeletePurchase(userId string, itemId string, opts ...RequestOption) Request
 	}
 }
 
-// ListItemPurchases list all purchases of item.
+// ListItemPurchases lists all the ever-made purchases of the given item.
+//
+// API calls limit: 60 requests per minute. This limit can be increased for a database by the Recombee support.
 func ListItemPurchases(itemId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/items/%s/purchases/", itemId),
@@ -43,7 +48,9 @@ func ListItemPurchases(itemId string) Request {
 	}
 }
 
-// ListUserPurchases list all purchases of given user.
+// ListUserPurchases lists all the purchases ever made by the given user.
+//
+// API calls limit: 60 requests per minute. This limit can be increased for a database by the Recombee support.
 func ListUserPurchases(userId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/users/%s/purchases/", userId),
