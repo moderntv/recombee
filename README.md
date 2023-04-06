@@ -4,7 +4,7 @@ A [Recombee API](https://docs.recombee.com/api.html) client written in Go.
 
 [![GoDoc][GoDoc-Image]][GoDoc-Url]
 
-[GoDoc-Url]: https://pkg.go.dev/github.com/nats-io/nats.go
+[GoDoc-Url]: https://pkg.go.dev/github.com/moderntv/recombee
 [GoDoc-Image]: https://img.shields.io/badge/GoDoc-reference-007d9c
 
 ## Features
