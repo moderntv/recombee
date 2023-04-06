@@ -83,7 +83,3 @@ func main() {
 	fmt.Printf("%#v\n", recommendations)
 }
 ```
-
-## License
-
-Unless otherwise noted, the source files are distributed under the MIT license found in the LICENSE file.
