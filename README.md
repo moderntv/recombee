@@ -11,11 +11,45 @@ A [Recombee API](https://docs.recombee.com/api.html) client written in Go.
 
 Is capable of managing:
 
-* Items and Item Properties
+* Items
+    * Add item
+    * Delete item
+    * List items
+* Item Properties
+    * Add item property
+    * Delete item property
+    * Get item property info
+    * Set item values
+    * Get item values
 * Users
+    * Add user
+    * Delete user
+    * Merge users
+    * List users
 * User-Item Interactions
+    * Add detail view
+    * Delete detail view
+    * List item detail views
+    * List user detail views
+    * Add purchase
+    * Delete purchase
+    * List item purchases
+    * List user purchases
+    * Add rating
+    * Delete rating
+    * List item ratings
+    * List user ratings
+    * Set view portion
+    * Delete view portion
+    * List item view portions
+    * List user view portions
 * Recommendations
+    * Recommend items to user
+    * Recommend items to item
 * Series
+    * Add series
+    * Delete series
+    * List series
 
 Uses [batch mode](https://docs.recombee.com/api.html#batch) by default to send requests to the API.
 
