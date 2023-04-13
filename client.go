@@ -1,3 +1,6 @@
+// Package recombee implements a client for Recombee API. The client uses batch endpoint to send requests to the API.
+//
+// For detailed documentation please see Recombee's API reference: https://docs.recombee.com/api.html.
 package recombee
 
 import (
@@ -23,18 +26,21 @@ type Response struct {
 	Message    string `json:"message"`
 }
 
+// BatchResponse represents a message returned by Recombee Batch API.
 type BatchResponse []struct {
 	Code int             `json:"code"`
 	Json json.RawMessage `json:"json"`
 }
 
 type Client struct {
-	// mandatory
-	baseURI    string
+	// URI where the Recombee API is exposed.
+	baseURI string
+	// DatabaseID points on storage where are API calls stores into or retrieves from.
 	databaseID string
-	token      []byte
+	// Authentication token created in Recombee admin.
+	token []byte
 
-	// configurable via options
+	// configurable via options.
 	requestTimeout  time.Duration
 	maxBatchSize    int
 	distinctRecomms bool //TODO implement
@@ -42,6 +48,7 @@ type Client struct {
 	httpClient *http.Client
 }
 
+// NewClient returns new Recombee API client.
 func NewClient(baseURI string, databaseID string, token string, opts ...ClientOption) (c *Client) {
 	c = &Client{
 		baseURI:    baseURI,
@@ -136,6 +143,7 @@ func (c *Client) batchRequest(ctx context.Context, requests ...Request) (batchRe
 	return
 }
 
+// Request creates batch request which requests appropriate entity/entities that is/are given by requests.
 func (c *Client) Request(ctx context.Context, requests ...Request) (responses BatchResponse, err error) {
 	if len(requests) == 0 {
 		return

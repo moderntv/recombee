@@ -5,6 +5,10 @@ import (
 	"net/http"
 )
 
+// AddItemProperty adds item property.
+//
+// Adding an item property is somehow equivalent to adding a column to the table of items. The items may be
+// characterized by various properties of different types.
 func AddItemProperty(propertyName string, type_ string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/items/properties/%s", propertyName),
@@ -15,6 +19,9 @@ func AddItemProperty(propertyName string, type_ string) Request {
 	}
 }
 
+// DeleteItemProperty deletes item property.
+//
+// Deleting an item property is roughly equivalent to removing a column from the table of items.
 func DeleteItemProperty(propertyName string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/items/properties/%s", propertyName),
@@ -22,6 +29,7 @@ func DeleteItemProperty(propertyName string) Request {
 	}
 }
 
+// GetItemPropertyInfo gets information about specified item property.
 func GetItemPropertyInfo(propertyName string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/items/properties/%s", propertyName),

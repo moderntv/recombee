@@ -5,6 +5,7 @@ import (
 	"net/http"
 )
 
+// AddSeries creates a new series in the database.
 func AddSeries(seriesId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/series/%s", seriesId),
@@ -12,6 +13,9 @@ func AddSeries(seriesId string) Request {
 	}
 }
 
+// DeleteSeries deletes the series of the given seriesId from the database.
+//
+// Deleting a series will only delete assignment of items to it, not the items themselves!
 func DeleteSeries(seriesId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/series/%s", seriesId),
@@ -19,6 +23,7 @@ func DeleteSeries(seriesId string) Request {
 	}
 }
 
+// ListSeries gets the list of all the series currently present in the database.
 func ListSeries(opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	for _, o := range opts {
