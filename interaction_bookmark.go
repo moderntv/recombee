@@ -22,7 +22,7 @@ func AddBookmark(userId string, itemId string, opts ...RequestOption) Request {
 	}
 }
 
-// DeleteBookmark deletes a bookmark uniquely specified by userId, itemId, and timestamp or
+// DeleteBookmark deletes a bookmark uniquely specified by `userId`, `itemId`, and `timestamp` or
 // all the bookmarks with the given `userId` and `itemId` if `timestamp` is omitted.
 func DeleteBookmark(userId string, itemId string, opts ...RequestOption) Request {
 	params := map[string]interface{}{
