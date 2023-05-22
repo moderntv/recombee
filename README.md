@@ -39,6 +39,10 @@ Is capable of managing:
     * Delete rating
     * List item ratings
     * List user ratings
+    * Add bookmark
+    * Delete bookmark
+    * List item bookmarks
+    * List user bookmarks
     * Set view portion
     * Delete view portion
     * List item view portions
