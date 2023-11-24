@@ -21,9 +21,9 @@ type Recommendations struct {
 //
 // Besides the recommended items, also a unique recommId is returned in the response. It can be used to:
 //
-//  * Let Recombee know that this recommendation was successful (e.g., user clicked one of the recommended items).
+//   - Let Recombee know that this recommendation was successful (e.g., user clicked one of the recommended items).
 //
-//  * Get subsequent recommended items when the user scrolls down (infinite scroll) or goes to the next page.
+//   - Get subsequent recommended items when the user scrolls down (infinite scroll) or goes to the next page.
 func RecommendItemsToUser(userId string, count int, opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	params["count"] = count
@@ -46,9 +46,9 @@ func RecommendItemsToUser(userId string, count int, opts ...RequestOption) Reque
 //
 // Besides the recommended items, also a unique recommId is returned in the response. It can be used to:
 //
-//  * Let Recombee know that this recommendation was successful (e.g., user clicked one of the recommended items). See Reported metrics.
+//   - Let Recombee know that this recommendation was successful (e.g., user clicked one of the recommended items). See Reported metrics.
 //
-//  * Get subsequent recommended items when the user scrolls down (infinite scroll) or goes to the next page. See Recommend Next Items.
+//   - Get subsequent recommended items when the user scrolls down (infinite scroll) or goes to the next page. See Recommend Next Items.
 func RecommendItemsToItem(itemId string, targetUserId string, count int, opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	params["count"] = count
@@ -59,6 +59,25 @@ func RecommendItemsToItem(itemId string, targetUserId string, count int, opts ..
 
 	return Request{
 		Path:   fmt.Sprintf("/recomms/items/%s/items/", itemId),
+		Method: http.MethodGet,
+		Params: params,
+	}
+}
+
+// RecommendNextItems returns items that shall be shown to a user as next recommendations when the
+// user e.g. scrolls the page down (infinite scroll) or goes to the next page.
+//
+// It accepts recommId of a base recommendation request (e.g., request from the first page)
+// and the number of items that shall be returned (count).
+func RecommendNextItems(recommId string, count int, opts ...RequestOption) Request {
+	params := make(map[string]interface{})
+	params["count"] = count
+	for _, o := range opts {
+		o(params)
+	}
+
+	return Request{
+		Path:   fmt.Sprintf("/recomms/next/items/%s", recommId),
 		Method: http.MethodGet,
 		Params: params,
 	}
