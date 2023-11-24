@@ -36,3 +36,11 @@ func GetItemPropertyInfo(propertyName string) Request {
 		Method: http.MethodGet,
 	}
 }
+
+// ListItemProperties gets the list of all the item properties in your database.
+func ListItemProperties() Request {
+	return Request{
+		Path:   "/items/properties/list/",
+		Method: http.MethodGet,
+	}
+}
