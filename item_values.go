@@ -22,6 +22,7 @@ func GetItemValues(itemId string) Request {
 	}
 }
 
+// UpdateMoreItems updates (some) property values of all the items that pass the filter.
 func UpdateMoreItems() Request {
 	return Request{
 		Path:   "/more-items/",
