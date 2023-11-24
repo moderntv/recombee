@@ -5,13 +5,12 @@ import (
 	"net/http"
 )
 
-// AddItemValues sets/updates (some) property values of the given item. The properties (columns) must be previously
-// created by AddItemProperty.
-func AddItemValues(itemId string, values map[string]interface{}) Request {
+// SetItemValues sets or updates (some) property values of the given item.
+// The properties (columns) must be previously created by AddItemProperty.
+func SetItemValues(itemId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/items/%s", itemId),
 		Method: http.MethodPost,
-		Params: values,
 	}
 }
 
@@ -20,5 +19,12 @@ func GetItemValues(itemId string) Request {
 	return Request{
 		Path:   fmt.Sprintf("/items/%s", itemId),
 		Method: http.MethodGet,
+	}
+}
+
+func UpdateMoreItems() Request {
+	return Request{
+		Path:   "/more-items/",
+		Method: http.MethodPost,
 	}
 }

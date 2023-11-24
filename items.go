@@ -40,3 +40,10 @@ func ListItems(opts ...RequestOption) Request {
 		Params: params,
 	}
 }
+
+func DeleteMoreItems() Request {
+	return Request{
+		Path:   "/more-items/",
+		Method: http.MethodDelete,
+	}
+}
