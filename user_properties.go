@@ -40,11 +40,3 @@ func ListUserProperties() Request {
 		Method: http.MethodGet,
 	}
 }
-
-// GetUserValues gets all the current property values of the given user.
-func GetUserValues(userId string) Request {
-	return Request{
-		Path:   fmt.Sprintf("/users/%s", userId),
-		Method: http.MethodGet,
-	}
-}
