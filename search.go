@@ -21,6 +21,8 @@ func SearchItems(userId string, searchQuery string, count int, opts ...RequestOp
 	}
 }
 
+// SearchItemSegments performs a full-text personalized search that returns Segments from a Segmentation.
+// The results are based on the provided searchQuery and also on the user’s past interactions (purchases, ratings, etc.).
 func SearchItemSegments(userId string, searchQuery string, count int, opts ...RequestOption) Request {
 	params := make(map[string]interface{})
 	params["searchQuery"] = searchQuery
