@@ -15,17 +15,27 @@ Is capable of managing:
     * Add item
     * Delete item
     * List items
+    * Delete more items
 * Item Properties
     * Add item property
     * Delete item property
     * Get item property info
+    * List item properties
     * Set item values
     * Get item values
+    * Update more items
 * Users
     * Add user
     * Delete user
     * Merge users
     * List users
+* User Properties
+    * Add user property
+    * Delete user property
+    * Get user property info
+    * List user properties
+    * Set user values
+    * Get user values
 * User-Item Interactions
     * Add detail view
     * Delete detail view
@@ -39,6 +49,10 @@ Is capable of managing:
     * Delete rating
     * List item ratings
     * List user ratings
+    * Add cart addition
+    * Delete cart addition
+    * List item cart additions
+    * List user cart additions
     * Add bookmark
     * Delete bookmark
     * List item bookmarks
@@ -48,12 +62,28 @@ Is capable of managing:
     * List item view portions
     * List user view portions
 * Recommendations
-    * Recommend items to user
-    * Recommend items to item
+    * Recommending items
+    * Recommending item segments
+    * Recommending users 
+* Search
+    * Search items 
+    * Search items segments
+    * Synonyms
 * Series
     * Add series
     * Delete series
     * List series
+    * List series items
+    * Insert to series
+    * Remove from series
+* Segmentations definition
+    * General
+    * Property based
+    * Manual ReQL
+    * Auto ReQL
+* Miscellaneous
+    * Reset database
+    * Batch
 
 Uses [batch mode](https://docs.recombee.com/api.html#batch) by default to send requests to the API.
 
