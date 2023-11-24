@@ -5,14 +5,6 @@ import (
 	"net/http"
 )
 
-type Recommendations struct {
-	RecommID string `json:"recommId"`
-	Recomms  []struct {
-		ID string `json:"id"`
-	} `json:"recomms"`
-	NumberNextRecommsCalls int `json:"numberNextRecommsCalls"`
-}
-
 // RecommendItemsToUser recommends top-N items that are most likely to be of high value for the given user.
 //
 // The most typical use cases are recommendations on the homepage, in some “Picked just for you” section, or in email.
