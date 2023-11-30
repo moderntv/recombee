@@ -13,6 +13,7 @@ func AddPurchase(userId string, itemId string, opts ...RequestOption) Request {
 	for _, o := range opts {
 		o(params)
 	}
+
 	return Request{
 		Path:   "/purchases/",
 		Method: http.MethodPost,
@@ -29,6 +30,7 @@ func DeletePurchase(userId string, itemId string, opts ...RequestOption) Request
 	for _, o := range opts {
 		o(params)
 	}
+
 	return Request{
 		Path:   "/purchases/",
 		Method: http.MethodDelete,

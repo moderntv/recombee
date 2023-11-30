@@ -13,6 +13,7 @@ func AddDetailView(userId string, itemId string, opts ...RequestOption) Request 
 	for _, o := range opts {
 		o(params)
 	}
+
 	return Request{
 		Path:   "/detailviews/",
 		Method: http.MethodPost,
@@ -29,6 +30,7 @@ func DeleteDetailView(userId string, itemId string, opts ...RequestOption) Reque
 	for _, o := range opts {
 		o(params)
 	}
+
 	return Request{
 		Path:   "/detailviews/",
 		Method: http.MethodDelete,
