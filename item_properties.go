@@ -10,12 +10,13 @@ import (
 // Adding an item property is somehow equivalent to adding a column to the table of items. The items may be
 // characterized by various properties of different types.
 func AddItemProperty(propertyName string, typ string) Request {
+	params := map[string]interface{}{
+		"type": typ,
+	}
 	return Request{
 		Path:   fmt.Sprintf("/items/properties/%s", propertyName),
 		Method: http.MethodPut,
-		Params: map[string]interface{}{
-			"type": typ,
-		},
+		Params: params,
 	}
 }
 

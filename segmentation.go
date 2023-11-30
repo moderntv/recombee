@@ -7,8 +7,9 @@ import (
 
 // ListSegmentations return all existing items Segmentations.
 func ListSegmentations(sourceType string) Request {
-	params := make(map[string]interface{})
-	params["sourceType"] = sourceType
+	params := map[string]interface{}{
+		"sourceType": sourceType,
+	}
 	return Request{
 		Path:   "/segmentations/list/",
 		Method: http.MethodGet,
