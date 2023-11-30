@@ -11,8 +11,8 @@ func AddBookmark(userId string, itemId string, opts ...RequestOption) Request {
 		"userId": userId,
 		"itemId": itemId,
 	}
-	for _, option := range opts {
-		option(params)
+	for _, o := range opts {
+		o(params)
 	}
 
 	return Request{
@@ -29,8 +29,8 @@ func DeleteBookmark(userId string, itemId string, opts ...RequestOption) Request
 		"userId": userId,
 		"itemId": itemId,
 	}
-	for _, option := range opts {
-		option(params)
+	for _, o := range opts {
+		o(params)
 	}
 
 	return Request{
