@@ -39,6 +39,7 @@ func MergeUsers(targetUserId string, sourceUserId string, opts ...RequestOption)
 	for _, o := range opts {
 		o(params)
 	}
+
 	return Request{
 		Path:   fmt.Sprintf("/users/%s/merge/%s", targetUserId, sourceUserId),
 		Method: http.MethodPut,
@@ -52,6 +53,7 @@ func ListUsers(opts ...RequestOption) Request {
 	for _, o := range opts {
 		o(params)
 	}
+
 	return Request{
 		Path:   "/users/list",
 		Method: http.MethodGet,
