@@ -42,10 +42,18 @@ func SearchItemSegments(userId string, searchQuery string, count int, opts ...Re
 //
 // When the term is used in the search query, the synonym is also used for the full-text search.
 // Unless oneWay=true, it works also in the opposite way (synonym -> term).
-func AddSearchSynonym() Request {
+func AddSearchSynonym(term, synonym string, opts ...RequestOption) Request {
+	params := make(map[string]interface{})
+	params["term"] = term
+	params["synonym"] = synonym
+	for _, o := range opts {
+		o(params)
+	}
+
 	return Request{
 		Path:   "/synonyms/items/",
 		Method: http.MethodPost,
+		Params: params,
 	}
 }
 

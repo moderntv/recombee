@@ -19,9 +19,16 @@ func ResetDatabase() Request {
 //
 // Any type of request from the above documentation may be used in the Batch, and the Batch
 // may combine different types of requests arbitrarily as well.
-func Batch() Request {
+func Batch(requests []Request, opts ...RequestOption) Request {
+	params := make(map[string]interface{})
+	params["requests"] = requests
+	for _, o := range opts {
+		o(params)
+	}
+
 	return Request{
 		Path:   "/batch/",
 		Method: http.MethodPost,
+		Params: params,
 	}
 }
