@@ -93,3 +93,15 @@ func WithRotationRate(rate float64) RequestOption {
 func WithRotationTime(t float64) RequestOption {
 	return WithKeyValue("rotationTime", t)
 }
+
+func WithTitle(title string) RequestOption {
+	return WithKeyValue("title", title)
+}
+
+func WithDescription(description string) RequestOption {
+	return WithKeyValue("description", description)
+}
+
+func WithExpression(expression string) RequestOption {
+	return WithKeyValue("expression", expression)
+}
