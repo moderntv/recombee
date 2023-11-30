@@ -46,9 +46,13 @@ func ListItems(opts ...RequestOption) Request {
 // If an item becomes obsolete/no longer available, it is meaningful to keep it in the catalog
 // (along with all the interaction data, which are very useful) and only exclude the item from recommendations.
 // In such a case, use ReQL filter instead of deleting the item completely.
-func DeleteMoreItems() Request {
+func DeleteMoreItems(filter string) Request {
+	params := map[string]interface{}{
+		"filter": filter,
+	}
 	return Request{
 		Path:   "/more-items/",
 		Method: http.MethodDelete,
+		Params: params,
 	}
 }
