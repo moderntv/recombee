@@ -11,8 +11,8 @@ func AddCartAddition(userId string, itemId string, opts ...RequestOption) Reques
 		"userId": userId,
 		"itemId": itemId,
 	}
-	for _, option := range opts {
-		option(params)
+	for _, o := range opts {
+		o(params)
 	}
 
 	return Request{
@@ -29,8 +29,8 @@ func DeleteCartAddition(userId string, itemId string, opts ...RequestOption) Req
 		"userId": userId,
 		"itemId": itemId,
 	}
-	for _, option := range opts {
-		option(params)
+	for _, o := range opts {
+		o(params)
 	}
 
 	return Request{
