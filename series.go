@@ -24,15 +24,9 @@ func DeleteSeries(seriesId string) Request {
 }
 
 // ListSeries gets the list of all the series currently present in the database.
-func ListSeries(opts ...RequestOption) Request {
-	params := make(map[string]interface{})
-	for _, o := range opts {
-		o(params)
-	}
-
+func ListSeries() Request {
 	return Request{
 		Path:   "/series/lists",
 		Method: http.MethodGet,
-		Params: params,
 	}
 }
