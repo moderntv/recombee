@@ -6,14 +6,10 @@ package recombee
 import (
 	"bytes"
 	"context"
-	"crypto/hmac"
-	"crypto/sha1"
-	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
-	"strconv"
 	"time"
 )
 
@@ -37,23 +33,22 @@ type Client struct {
 	baseURI string
 	// DatabaseID points on storage where are API calls stores into or retrieves from.
 	databaseID string
-	// Authentication token created in Recombee admin.
-	token []byte
+	auth       Auth // Authentication method used for API calls, can be HMAC or Bearer token.
 
 	// configurable via options.
 	requestTimeout  time.Duration
 	maxBatchSize    int
-	distinctRecomms bool //TODO implement
+	distinctRecomms bool // TODO implement
 
 	httpClient *http.Client
 }
 
 // NewClient returns new Recombee API client.
-func NewClient(baseURI string, databaseID string, token string, opts ...ClientOption) (c *Client) {
+func NewClient(baseURI string, databaseID string, auth Auth, opts ...ClientOption) (c *Client) {
 	c = &Client{
 		baseURI:    baseURI,
 		databaseID: databaseID,
-		token:      []byte(token),
+		auth:       auth,
 
 		requestTimeout: 5 * time.Minute,
 		maxBatchSize:   10000, // API limit
@@ -68,28 +63,8 @@ func NewClient(baseURI string, databaseID string, token string, opts ...ClientOp
 	return
 }
 
-func (c *Client) signURL(u *url.URL) (err error) {
-	q := u.Query()
-
-	// add timestamp
-	q.Set("hmac_timestamp", strconv.FormatInt(time.Now().Unix(), 10))
-	u.RawQuery = q.Encode()
-
-	// create signature
-	var sum []byte
-	mac := hmac.New(sha1.New, []byte(c.token))
-	mac.Write([]byte(u.RequestURI()))
-	sum = mac.Sum(nil)
-
-	// add signature
-	q.Set("hmac_sign", hex.EncodeToString(sum))
-	u.RawQuery = q.Encode()
-
-	return
-}
-
 func (c *Client) batchRequest(ctx context.Context, requests ...Request) (batchResponse BatchResponse, err error) {
-	var batchRequest = BatchRequest{
+	batchRequest := BatchRequest{
 		Requests: requests,
 	}
 
@@ -99,23 +74,25 @@ func (c *Client) batchRequest(ctx context.Context, requests ...Request) (batchRe
 	if err != nil {
 		return
 	}
-	err = c.signURL(u)
-	if err != nil {
-		return
-	}
 
 	// request
-	var body = bytes.NewBuffer(nil)
+	body := bytes.NewBuffer(nil)
 	err = json.NewEncoder(body).Encode(batchRequest)
 	if err != nil {
 		return
 	}
+
 	var request *http.Request
 	request, err = http.NewRequestWithContext(ctx, http.MethodPost, u.String(), body)
 	if err != nil {
 		return
 	}
 	request.Header.Set("Content-Type", "application/json; charset=utf-8")
+
+	err = c.auth.Authenticate(request)
+	if err != nil {
+		return
+	}
 
 	// response
 	var response *http.Response
