@@ -40,6 +40,9 @@ type Client struct {
 	maxBatchSize    int
 	distinctRecomms bool // TODO implement
 
+	maxIdleConns        int
+	maxIdleConnsPerHost int
+
 	httpClient *http.Client
 }
 
@@ -56,8 +59,18 @@ func NewClient(baseURI string, databaseID string, auth Auth, opts ...ClientOptio
 	for _, o := range opts {
 		o(c)
 	}
+
 	c.httpClient = &http.Client{
 		Timeout: c.requestTimeout,
+	}
+
+	// Only configure custom transport if connection pooling settings are specified
+	if c.maxIdleConns > 0 || c.maxIdleConnsPerHost > 0 {
+		transport := &http.Transport{
+			MaxIdleConns:        c.maxIdleConns,
+			MaxIdleConnsPerHost: c.maxIdleConnsPerHost,
+		}
+		c.httpClient.Transport = transport
 	}
 
 	return
@@ -142,4 +155,11 @@ func (c *Client) Request(ctx context.Context, requests ...Request) (responses Ba
 	}
 
 	return
+}
+
+func WithMaxIdleConnections(total int, perHost int) ClientOption {
+	return func(c *Client) {
+		c.maxIdleConns = total
+		c.maxIdleConnsPerHost = perHost
+	}
 }
